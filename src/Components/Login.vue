@@ -11,6 +11,10 @@
           <input required v-model="password" type="password" />
           <label>Password</label>
         </div>
+        <div class="captcha-box">
+          <label class="captcha-label">{{ captchaText }}</label>
+          <input required v-model="captcha" type="text" />
+        </div>
         <button @click="login">
           <span></span>
           <span></span>
@@ -31,16 +35,32 @@ export default {
     return {
       username: "",
       password: "",
+      captcha: "",
+      captchaText: this.generateCaptchaText(),
     };
   },
   methods: {
     login() {
-      if (this.username === "admin" && this.password === "123456") {
-        alert("Giriş başarılı!");
-        // Giriş başarılı, isteğe bağlı olarak yönlendirme veya başka bir işlem yapılabilir
+      if (this.captcha === this.captchaText) {
+        if (this.username === "Fatih" && this.password === "5353") {
+          alert("Giriş başarılı!");
+        } else {
+          alert("Kullanıcı adı veya şifre hatalı!");
+        }
       } else {
-        alert("Kullanıcı adı veya şifre hatalı!");
+        alert("CAPTCHA doğrulaması hatalı!");
       }
+    },
+    generateCaptchaText() {
+      const characters =
+        "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+      let captchaText = "";
+      for (let i = 0; i < 6; i++) {
+        captchaText += characters.charAt(
+          Math.floor(Math.random() * characters.length)
+        );
+      }
+      return captchaText;
     },
   },
 };
@@ -232,5 +252,19 @@ export default {
   background: transparent;
   color: #aaa;
   border-radius: 5px;
+}
+
+.captcha-box {
+  position: relative;
+  text-align: center;
+  width: 300px !important; /* Genişlik ayarı */
+  height: 100px !important;
+}
+
+.captcha-label {
+  display: block;
+  margin-bottom: 10px;
+  font-size: 30px;
+  color: #fff;
 }
 </style>
