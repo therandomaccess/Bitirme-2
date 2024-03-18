@@ -1,0 +1,59 @@
+# Dependency directories
+node_modules/
+
+# Production build
+build/
+
+# Environment variables
+.env
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# Logs
+logs/
+*.log
+
+# Dependency directory symlink
+npm-debug.log*
+
+# Debug logs
+debug.log*
+
+# Editor directories and files
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+
+# Cache directories
+.npm/
+.npmrc
+.npm-*
+*.npm
+
+# System files
+node.exe
+node_modules/
+package-lock.json
+
+# IDE files
+.idea/
+*.iml
+
+# Compiled files
+*.class
+*.o
+*.pyc
+*.swp
+*.pyc
+*.dll
+*.exe
+
+# Miscellaneous
+*.bak
+*.orig
+*.tmp
+*.sass-cache
+*.pid
