@@ -9,7 +9,12 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "vue": "^3.4.21"
+    "axios": "^1.6.8",
+    "bootstrap": "^5.3.3",
+    "express": "^4.19.1",
+    "nodemon": "^3.1.0",
+    "vue": "^3.4.21",
+    "vue-router": "^4.3.0"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^5.0.4",

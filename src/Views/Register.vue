@@ -1,21 +1,18 @@
 <template>
   <div>
-    <div class="login-box">
-      <p>Login</p>
+    <div class="register-box">
+      <p>Register</p>
       <form>
         <div class="user-box">
-          <input required v-model="username" type="text" />
+          <input required v-model="registerData.username" type="text" />
           <label>Email</label>
         </div>
         <div class="user-box">
-          <input required v-model="password" type="password" />
+          <input required v-model="registerData.password" type="password" />
           <label>Password</label>
         </div>
-        <div class="captcha-box">
-          <label class="captcha-label">{{ captchaText }}</label>
-          <input required v-model="captcha" type="text" />
-        </div>
-        <button @click="login">
+
+        <button @click.prevent="register">
           <span></span>
           <span></span>
           <span></span>
@@ -23,79 +20,71 @@
           Submit
         </button>
       </form>
-      <p>Don't have an account ? <a href="" class="a2"> Sign up!</a></p>
+      <p>
+        Already have an account ?
+        <router-link to="/" class="a2"> Log in!</router-link>
+      </p>
     </div>
   </div>
 </template>
 
 <script>
+import axios from "axios";
+
 export default {
-  name: "Login",
+  name: "Register",
   data() {
     return {
-      username: "",
-      password: "",
-      captcha: "",
-      captchaText: this.generateCaptchaText(),
+      registerData: {
+        username: "",
+        password: "",
+      },
     };
   },
   methods: {
-    login() {
-      if (this.captcha === this.captchaText) {
-        if (this.username === "Fatih" && this.password === "5353") {
-          alert("Giriş başarılı!");
-        } else {
-          alert("Kullanıcı adı veya şifre hatalı!");
-        }
-      } else {
-        alert("CAPTCHA doğrulaması hatalı!");
-      }
-    },
-    generateCaptchaText() {
-      const characters =
-        "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-      let captchaText = "";
-      for (let i = 0; i < 6; i++) {
-        captchaText += characters.charAt(
-          Math.floor(Math.random() * characters.length)
+    async register() {
+      try {
+        const response = await axios.post(
+          "http://localhost:3000/register",
+          this.registerData
         );
+        console.log(response.data);
+
+        this.$router.push("/");
+      } catch (error) {
+        console.error(error.response.data);
       }
-      return captchaText;
     },
   },
 };
 </script>
 
 <style scoped>
-.login-box {
+.register-box {
   position: absolute;
   top: 50%;
   left: 50%;
-  width: 400px;
-  padding: 40px;
-  margin: 20px auto;
-  transform: translate(-50%, -55%);
+  transform: translate(-50%, -50%);
   background: rgba(0, 0, 0, 0.9);
-  box-sizing: border-box;
-  box-shadow: 0 15px 25px rgba(0, 0, 0, 0.6);
+  padding: 40px;
   border-radius: 10px;
+  box-shadow: 0 15px 25px rgba(0, 0, 0, 0.6);
+  width: 400px;
 }
 
-.login-box p:first-child {
-  margin: 0 0 30px;
-  padding: 0;
+.register-box p {
+  margin-bottom: 30px;
   color: #fff;
   text-align: center;
-  font-size: 1.5rem;
+  font-size: 24px;
   font-weight: bold;
-  letter-spacing: 1px;
 }
 
-.login-box .user-box {
+.register-box .user-box {
   position: relative;
 }
 
-.login-box .user-box input {
+.register-box .user-box input {
   width: 100%;
   padding: 10px 0;
   font-size: 16px;
@@ -107,7 +96,7 @@ export default {
   background: transparent;
 }
 
-.login-box .user-box label {
+.register-box .user-box label {
   position: absolute;
   top: 0;
   left: 0;
@@ -118,15 +107,16 @@ export default {
   transition: 0.5s;
 }
 
-.login-box .user-box input:focus ~ label,
-.login-box .user-box input:valid ~ label {
+.register-box .user-box input:focus ~ label,
+.register-box .user-box input:valid ~ label {
   top: -20px;
   left: 0;
   color: #fff;
   font-size: 12px;
 }
 
-.login-box form button {
+.register-box form button {
+  margin-bottom: 30px;
   position: relative;
   display: inline-block;
   padding: 10px 20px;
@@ -144,18 +134,18 @@ export default {
   cursor: pointer;
 }
 
-.login-box form button:hover {
+.register-box form button:hover {
   background: #fff;
   color: #272727;
   border-radius: 5px;
 }
 
-.login-box form button span {
+.register-box form button span {
   position: absolute;
   display: block;
 }
 
-.login-box form button span:nth-child(1) {
+.register-box form button span:nth-child(1) {
   top: 0;
   left: -100%;
   width: 100%;
@@ -175,7 +165,7 @@ export default {
   }
 }
 
-.login-box form button span:nth-child(2) {
+.register-box form button span:nth-child(2) {
   top: -100%;
   right: 0;
   width: 2px;
@@ -196,7 +186,7 @@ export default {
   }
 }
 
-.login-box form button span:nth-child(3) {
+.register-box form button span:nth-child(3) {
   bottom: 0;
   right: -100%;
   width: 100%;
@@ -217,7 +207,7 @@ export default {
   }
 }
 
-.login-box form button span:nth-child(4) {
+.register-box form button span:nth-child(4) {
   bottom: -100%;
   left: 0;
   width: 2px;
@@ -238,33 +228,19 @@ export default {
   }
 }
 
-.login-box p:last-child {
+.register-box p:last-child {
   color: #aaa;
   font-size: 14px;
 }
 
-.login-box a.a2 {
+.register-box a.a2 {
   color: #fff;
   text-decoration: none;
 }
 
-.login-box a.a2:hover {
+.register-box a.a2:hover {
   background: transparent;
   color: #aaa;
   border-radius: 5px;
-}
-
-.captcha-box {
-  position: relative;
-  text-align: center;
-  width: 300px !important; /* Genişlik ayarı */
-  height: 100px !important;
-}
-
-.captcha-label {
-  display: block;
-  margin-bottom: 10px;
-  font-size: 30px;
-  color: #fff;
 }
 </style>
