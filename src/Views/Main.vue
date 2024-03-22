@@ -1,11 +1,10 @@
 <template>
-  <div>
-    <SideBar />
-  </div>
+  <SideBar />
 </template>
 
 <script>
-import SideBar from "../Components/SideBar";
+import SideBar from "../Components/SideBar.vue";
+
 export default {
   name: "Home",
   components: {
@@ -14,6 +13,4 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
-
-</style>
+<style scoped></style>
