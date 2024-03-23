@@ -10,7 +10,7 @@ const PORT = process.env.PORT || 3000;
 app.use(cors());
 
 mongoose
-  .connect("mongodb://localhost:27017/mevn-login", {})
+  .connect(process.env.MONGODB_URI, {})
   .then(() => console.log("MongoDB bağlantısı başarılı"))
   .catch((err) => console.error("MongoDB bağlantı hatası:", err));
 

@@ -5,7 +5,7 @@ node_modules/
 build/
 
 # Environment variables
-.env
+
 
 # OS generated files
 .DS_Store
